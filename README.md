@@ -1,11 +1,45 @@
 # RNA-seq_exercise
+
 ## Introduction
 
-This will be a very simple, undergrad level, exercise of differential analysis in RNA-seq. It's based on the *Blanco-Melo et al* 2020 [paper](www.biorxiv.org/content/10.1101/2020.03.24.004655v1.full) on SARS-CoV-2 transcriptional signature. The raw data referenced by the paper is present in the Sequence Read Archive (ID: SRP253951). [Here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507) you can find the Gene Expression Omnibus page.
+This will be a very simple, undergrad level, step-by-step tutorial to differential analysis in RNA-seq. It's based on the *Blanco-Melo et al* 2020 [paper](www.biorxiv.org/content/10.1101/2020.03.24.004655v1.full) on SARS-CoV-2 transcriptional signature. The raw data referenced by the paper is present in the Sequence Read Archive (or SRA) and it can be found with this ID SRP253951. [Here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507) you can find the Gene Expression Omnibus (or GEO) webpage.
+
+## Conda Environment
+
+SET UP CONDA ENV
+INSTALL PACKAGES
+
+## Downloading the data
+
+From the GEO webpage we shall access the SRA Run Selector (Fig.1). Select two selection filters, `Cell_line:nhbe` and `Organism:homo sapiens`, 24 runs will be selected.
+
+![Fig.1](img/fig1.jpg)
+
+Now click on the **Metadata** button (Fig.2) the CSV file `SraRunTable.txt` will be downloaded. It contains all the metadata from the selected sequencing runs.
+
+![Fig.2](img/fig2.jpg)
+
+Before going any further, we must note (see Fig.3) that each RNA-seq sample is actually composed by 4 runs, beacause each library was splitted in 4 different lanes during the sequencing. You can see that the Runs from 1 to 4 and from 5 to 8 are associated to only one Experiment ID and one GEO_Accession ID.
+
+![Fig.3](img/fig3.jpg)
+
+Now we can easily download every selected run using the sra-toolkit, in particular `prefetch` and `fastq-dump`.
+
+```sh
+VAR=$(cut -d ',' -f 1 SraRunTable.txt | tail -n +2) # select the first field, containg the IDs needed for the sra-toolkit, and eliminate the header "Run"
+
+for i in ${VAR}
+    do
+        echo "Download SRA sample: ${i}"
+        prefetch ${i}                               # for each run ID we prefetch the data...
+        fastq-dump --gzip --defline-qual '+' ${i}   # ...and then download it already decrompressed 
+    done
+```
+The `--defline-qual '+'` is needed because without this argument `fastq-dump` for some reasons eliminates the third row (second header) of the fastq read.
 
 ## Trimming
 
-`trimgalore_script.sh` is used to trim the sequences. It uses `trim_galore` . The code is shown below.
+WHAT IS TRIMMING?
 
 ```sh
 mkdir trimgalore_results
@@ -22,11 +56,7 @@ do
 done
 ```
 
-The 0.5% of all reads is discarded in average. We can verify it by reading the trimgalore log files.
-
 ## Quantification
-
-`salmon` is a python tool used for a “wicked fast” transcript indexing and quantification for RNA-seq data.
 
 ```sh
 GEO=$(cat ../geo_accessions.txt)
@@ -46,11 +76,11 @@ Since each RNA-seq sample is composed by 4 runs with the same GEO accessions ID,
 
 ## MultiQC Report
 
-The `multiqc` python tool a report generator perfect for summarizing the output form numerous bioinformatics tools in a single HTML file. It’s suffiecient to run `multiqc .`, it will generate said HTML file and a data directory.
+The `multiqc` python tool a report generator, perfect for summarizing the output form numerous bioinformatics tools in a single HTML file. It’s suffiecient to run `multiqc .`, it will generate said HTML file and a data directory.
+
+MULTIQC BREAKDOWN
 
 ## Differential Expression Analysis
-
-We analyzed the differential expression using R packages such as `tximport`, `GenomicFeatures` and `DESeq2`.
 
 ```r
 # load packages ----

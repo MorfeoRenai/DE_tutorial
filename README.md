@@ -13,15 +13,15 @@ INSTALL PACKAGES
 
 From the GEO webpage we shall access the SRA Run Selector (Fig.1). Select two selection filters, `Cell_line:nhbe` and `Organism:homo sapiens`, 24 runs will be selected.
 
-![Fig.1](img/fig1.jpg)
+![Fig.1](fig1.jpg)
 
 Now click on the **Metadata** button (Fig.2) the CSV file `SraRunTable.txt` will be downloaded. It contains all the metadata from the selected sequencing runs.
 
-![Fig.2](img/fig2.jpg)
+![Fig.2](fig2.png)
 
 Before going any further, we must note (see Fig.3) that each RNA-seq sample is actually composed by 4 runs, beacause each library was splitted in 4 different lanes during the sequencing. You can see that the Runs from 1 to 4 and from 5 to 8 are associated to only one Experiment ID and one GEO_Accession ID.
 
-![Fig.3](img/fig3.jpg)
+![Fig.3](fig3.png)
 
 Now we can easily download every selected run using the sra-toolkit, in particular `prefetch` and `fastq-dump`.
 

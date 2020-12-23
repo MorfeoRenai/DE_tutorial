@@ -7,7 +7,7 @@ This will be a very simple, undergrad level, exercise of differential analysis i
 
 `trimgalore_script.sh` is used to trim the sequences. It uses `trim_galore` . The code is shown below.
 
-```
+```sh
 mkdir trimgalore_results
 
 for file in ./fastq_files/*
@@ -28,7 +28,7 @@ The 0.5% of all reads is discarded in average. We can verify it by reading the t
 
 `salmon` is a python tool used for a “wicked fast” transcript indexing and quantification for RNA-seq data.
 
-```
+```sh
 GEO=$(cat ../geo_accessions.txt)
 
 mkdir ../salmon_results
@@ -52,7 +52,7 @@ The `multiqc` python tool a report generator perfect for summarizing the output 
 
 We analyzed the differential expression using R packages such as `tximport`, `GenomicFeatures` and `DESeq2`.
 
-```
+```r
 # load packages ----
 library(DESeq2)
 library(tximport)

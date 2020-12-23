@@ -1,7 +1,7 @@
 # RNA-seq_exercise
 ## Introduction
 
-This will be a very simple, undergrad level, exercise of differential analysis in RNA-seq. It's based on the *Blanco-Melo et al* 2020 [paper](www.biorxiv.org/content/10.1101/2020.03.24.004655v1.full) on SARS-CoV-2 transcriptional signature. The raw data referenced by the paper is present in the Sequence Read Archive (ID: SRP253951). [Here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507) is the Gene Expression Omnibus Page.
+This will be a very simple, undergrad level, exercise of differential analysis in RNA-seq. It's based on the *Blanco-Melo et al* 2020 [paper](www.biorxiv.org/content/10.1101/2020.03.24.004655v1.full) on SARS-CoV-2 transcriptional signature. The raw data referenced by the paper is present in the Sequence Read Archive (ID: SRP253951). [Here](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE147507) you can find the Gene Expression Omnibus page.
 
 ## Trimming
 

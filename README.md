@@ -1,1 +1,1 @@
-# RNAseq_exercise
+# RNA-seq_exercise
